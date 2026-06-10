@@ -4,7 +4,9 @@ A trustless, permissionless implementation of a *kassa vzaimopomoshchi* (rotatin
 
 **Program ID (devnet):** `A2V2rfqjFiXAGiqBSX9BGUUyxRaaAQUtHs4amk5sHnyj`
 
-[View on Solana Explorer →](https://explorer.solana.com/address/A2V2rfqjFiXAGiqBSX9BGUUyxRaaAQUtHs4amk5sHnyj?cluster=devnet)
+[View on Solana Explorer →](https://explorer.solana.com/address/A2V2rfqjFiXAGiqBSX9BGUUyxRaaAQUtHs4amk5sHnyj?cluster=devnet) · **[Live demo →](https://rosca-devnet.vercel.app)**
+
+> **Devnet USDC:** get test tokens at [faucet.circle.com](https://faucet.circle.com) — mint `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU`
 
 ---
 
@@ -162,6 +164,7 @@ Each remaining member pays `surcharge_per_member` on top of their next contribut
 - **Exit-refund is best-effort:** if a member with zero collateral (position N) defaults before paying their surcharge, the exiter absorbs a proportional shortfall. `close_member` pays `min(refund_due, refund_reserve)` and never blocks `close_circle`.
 - **Max 16 members:** enables u16 contribution bitmaps and fixed-size arrays. Practical ROSCA groups are typically 5–15 members.
 - **Classic SPL Token only** (not Token-2022): minimizes the testing surface.
+- **My Circles discovery:** the web dashboard uses `getProgramAccounts` + `localStorage` — no indexer required. GPA may be rate-limited on shared RPC endpoints; set `VITE_RPC_URL` in `app/.env` to point at a dedicated node (e.g. Helius free tier).
 - **10 instructions** (vs. "6–8" target): the program specification implicitly requires all 10; removing any would drop mandatory functionality.
 
 ---
@@ -171,7 +174,7 @@ Each remaining member pays `surcharge_per_member` on top of their next contribut
 **Program:** [`A2V2rfqjFiXAGiqBSX9BGUUyxRaaAQUtHs4amk5sHnyj`](https://explorer.solana.com/address/A2V2rfqjFiXAGiqBSX9BGUUyxRaaAQUtHs4amk5sHnyj?cluster=devnet)
 
 **Demo circle (3-member, 90-second rounds, completed):**
-[`8vDKkWNdaikiy3ihuAhnKfTmHUhUZijpehcZCYXvQuHh`](https://explorer.solana.com/address/8vDKkWNdaikiy3ihuAhnKfTmHUhUZijpehcZCYXvQuHh?cluster=devnet)
+[`8vDKkWNdaikiy3ihuAhnKfTmHUhUZijpehcZCYXvQuHh`](https://explorer.solana.com/address/8vDKkWNdaikiy3ihuAhnKfTmHUhUZijpehcZCYXvQuHh?cluster=devnet) · [Open in dashboard →](https://rosca-devnet.vercel.app/circle/8vDKkWNdaikiy3ihuAhnKfTmHUhUZijpehcZCYXvQuHh)
 
 ### Transaction Links by Instruction Type
 
@@ -200,7 +203,33 @@ Each remaining member pays `surcharge_per_member` on top of their next contribut
 
 ## Running It
 
-### Requirements
+Two clients are available: a **web dashboard** (for end users) and a **CLI** (for scripting and testing).
+
+### Web App (Dashboard)
+
+The dashboard lets you view any circle, join, contribute, claim payouts, slash defaulters, and exit early — entirely through a browser, no CLI needed.
+
+**Live:** [https://rosca-devnet.vercel.app](https://rosca-devnet.vercel.app)
+
+**Run locally:**
+
+```bash
+cd app
+npm install
+npm run dev          # http://localhost:5173
+```
+
+Optionally create `app/.env` to use a dedicated RPC endpoint (reduces rate-limit risk):
+
+```
+VITE_RPC_URL=https://your-rpc-endpoint.com
+```
+
+See `app/.env.example` for reference. Without it, the public devnet endpoint is used.
+
+---
+
+### Requirements (CLI + Anchor)
 
 - Rust + Cargo (with `solana` target)
 - Solana CLI ≥ 1.18
@@ -297,6 +326,13 @@ Rosca/
 │   └── src/index.ts           — commander CLI (create/join/leave/pay/claim/exit/slash/cancel/close/status)
 ├── scripts/
 │   └── devnet-demo.ts         — end-to-end happy path demo
+├── app/                       — web dashboard (Vite + React + TanStack Query)
+│   ├── src/
+│   │   ├── lib/               — off-chain formula mirrors, unit-tested with vitest (24 tests)
+│   │   ├── hooks/             — TanStack Query hooks; single RPC boundary
+│   │   ├── components/        — dashboard, rounds matrix, action panel, cleanup
+│   │   └── pages/             — HomePage, CreateCirclePage, CircleDashboardPage
+│   └── vercel.json            — SPA rewrite rule
 └── README.md
 ```
 

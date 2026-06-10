@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #020617; /* slate-950 */
+  color: #f1f5f9; /* slate-100 */
+}
+
+.font-mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Wallet adapter modal — dark theme */
+.wallet-adapter-modal-wrapper {
+  font-family: "Inter", system-ui, sans-serif !important;
+  background: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+.wallet-adapter-modal-title {
+  color: #f1f5f9 !important;
+}
+.wallet-adapter-button {
+  background: #334155 !important;
+  color: #f1f5f9 !important;
+}
+.wallet-adapter-button:hover {
+  background: #475569 !important;
+}
+.wallet-adapter-modal-list-more {
+  color: #94a3b8 !important;
+}
