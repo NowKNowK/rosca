@@ -4,7 +4,7 @@ A trustless, permissionless implementation of a *kassa vzaimopomoshchi* (rotatin
 
 **Program ID (devnet):** `A2V2rfqjFiXAGiqBSX9BGUUyxRaaAQUtHs4amk5sHnyj`
 
-[View on Solana Explorer →](https://explorer.solana.com/address/A2V2rfqjFiXAGiqBSX9BGUUyxRaaAQUtHs4amk5sHnyj?cluster=devnet) · **[Live demo →]((https://roscanowk.vercel.app/))**
+[View on Solana Explorer →](https://explorer.solana.com/address/A2V2rfqjFiXAGiqBSX9BGUUyxRaaAQUtHs4amk5sHnyj?cluster=devnet) · **[Live demo (https://roscanowk.vercel.app/)**
 
 > **Devnet USDC:** get test tokens at [faucet.circle.com](https://faucet.circle.com) — mint `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU`
 
